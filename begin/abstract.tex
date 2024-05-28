@@ -1,0 +1,18 @@
+\documentclass[../thesis.tex]{subfiles}
+\begin{document}
+    \cleardoublepage
+    \phantomsection
+    \pdfbookmark{Abstract}{Abstract}
+    \begingroup
+    \let\clearpage\relax
+    \let\cleardoublepage\relax
+    \chapter*{Abstract}
+    The Internet has become a key resource for accessing and sharing information. However, not all content found on it can be considered legitimate, and using tools such as web crawlers can help search for violations. In this thesis, carried out in collaboration with Kopjra, we aim to develop a web crawler application capable of automatically visiting a website, extracting URLs and indexing the HTML documents of its web pages, so as to enable keyword searches. We decided to compare two serverless implementations based on AWS Lamba and Knative, with a third microservice-based one that exploits the resources made available by Kubernetes. It is also possible to choose between two search methodologies: HTTP requests or Browser automation. To support the application, two microservices were developed, comprising the backend and frontend, as well as the deployment of an Elasticsearch cluster, which is necessary for proper ingestion of the content of web pages. Thanks to a series of tests, it is possible to compare the different implementations and understand the critical issues of each.
+    
+    \endgroup
+
+    \vfill
+
+    \noindent
+    \textit{\textbf{Keywords}}: \textit{Cloud Computing, FaaS, Serverless, Kubernetes, AWS Lambda, AWS SQS, AWS SNS, Knative, RabbitMQ, CloudEvents, Web Crawler, Browser Automation, Puppeteer, Elasticsearch, Amazon CloudWatch, Prometheus, Grafana, InfluxDB, Telegraf}.
+\end{document}

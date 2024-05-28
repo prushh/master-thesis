@@ -1,0 +1,19 @@
+\documentclass[../thesis.tex]{subfiles}
+\begin{document}
+    \chapter*{Sommario}
+    \addcontentsline{toc}{chapter}{Sommario}
+\begin{otherlanguage}{italian}
+    Questa tesi descrive il lavoro svolto durante il tirocinio presso Kopjra Srl \cite{site:kopjra}, società bolognese che si occupa di investigazioni online, \acrshort{OSINT} e network forensics. L'attività è stata svolta con la supervisione dell' Ing. Emanuele Casadio, CTO e cofondatore dell'azienda, e la collaborazione del Dott. Matteo Trentin, studente Unibo al secondo anno di dottorato in "Computer Science and Engineering".
+    
+    L'elaborato mira a valutare l'efficacia dell'approccio serverless per un applicativo web crawler.
+    
+    L'idea nasce dalla necessità dell'azienda di raccogliere informazioni su siti web che potrebbero contenere violazioni della reputazione, della proprietà intellettuale o industriale. La visita di pagine web è quindi volta all'estrazione di \acrshort{URL} e all'indicizzazione dell'\acrshort{HTML} contenuto in esse, così da poter effettuare, in un secondo momento, ricerche per parole chiave. %TODO: testuale?
+    
+    Nel corso del tirocinio, ho approfondito la letteratura relativa al web crawling e valutato le diverse metodologie adottate per la sua realizzazione. Al fine di garantire costi d'infrastruttura minimi e massima scalabilità, si è scelto di utilizzare il paradigma serverless, già consolidato all'interno dell'azienda per altri prodotti. Sono state quindi confrontate le implementazioni basate su \acrshort{AWS} Lambda e Knative, con la rispettiva implementazione a microservizio che sfrutta l'\acrshort{API} di \gls{k8s}. \`E inoltre possibile scegliere tra due modalità di ricerca, l'automazione del browser, dove si interagisce direttamente con il \acrshort{DOM}, oppure l'invio di richieste \acrshort{HTTP}, più efficiente in termini di risorse e velocità.
+    
+    A supporto dell'applicativo, ho sviluppato due microservizi: uno per la gestione delle ricerche (backend) e uno mirato a migliorare l'usabilità dell'applicazione, consentendo agli utenti di interagire in modo intuitivo con l'interfaccia (frontend). Inoltre, ho effettuato il deployment di un cluster Elasticsearch mediante l'apposito operatore di \gls{k8s} e creato un indice personalizzato per garantire una corretta elaborazione dei documenti \acrshort{HTML}.
+    
+    La validità delle soluzioni proposte è supportata da una serie di test che hanno permesso la raccolta di varie metriche, facilitando un confronto tra di esse. Infine, questa analisi ha permesso di rilevare i vantaggi e gli svantaggi di ciascuna variante, individuando contestualmente le relative limitazioni e le aree che richiedono miglioramenti.
+\end{otherlanguage}
+
+\end{document}

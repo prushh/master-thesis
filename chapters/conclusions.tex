@@ -1,0 +1,25 @@
+\documentclass[../thesis.tex]{subfiles}
+\begin{document}
+\chapter{Conclusions}\label{cap:conclusion}
+All three web crawler implementations presented in this thesis were able to collect and index information about web pages. The tests performed and the metrics recorded made it possible to understand the advantages and disadvantages of each platform, both from a performance and economic point of view.
+
+As expected, the two platforms exploiting the serverless paradigm proved faster in executing the crawl due to the concurrent execution of multiple functions. Using queuing or notification services, the latter generated an average of 40MB for all 6 experiments performed on \acrshort{AWS} and Knative respectively.
+
+On the other hand, using \gls{k8s} resources to create a \gls{job} that deploys a \gls{pod} for each new search, doesn't introduce any overhead due to communication but has lower performance in terms of crawl duration, especially as the number of \acrshort{URL}s increases.
+
+A fundamental difference in \acrshort{AWS}, but not in Knative, concerns the possibility of specifying the batch size. As mentioned, this lack has been fixed on the development side of the backend and core modules. The community has been asked about this issue, and for now, a GitHub issue \cite{site:knative_batch_issue} mentions the problem.
+
+Cluster configurations already provide at first glance an idea of which implementation is the most expensive. Knative is the platform where tests performed best for this specific use case, but we must consider that to set up a cluster of that value and maintain it requires a considerable portfolio, especially if we assume a maximum limit of a thousand concurrent functions, so as to match normal \acrshort{AWS} Lambda behaviour. Other implementations also require an underlying infrastructure, at a minimum for the backend, but we are talking about considerably fewer resources because the pod has a few more resources than a Knative function and handles all the search, whereas \acrshort{AWS} manages Lambda, you are going to pay for just the actual usage.
+
+\section{Future works}\label{sec:future_works}
+The work discussed in this thesis can be improved from several points of view, which concern both the application and architectural side:
+
+\begin{itemize}
+    \item the test results showed that the \gls{k8s} implementation could have some problems with the browser on searches with more than a thousand of \acrshort{URL}s, so it would be interesting to investigate and repeat the tests;
+    \item in \acrshort{AWS} Lambda, it might be useful to increase the timeout to check whether errors remain by repeating the experiments;
+    \item new features could be added to the general core implementation, such as automatic bypassing of \gls{recaptcha}s, the possibility of using residential proxies to avoid the rare problems with \acrshort{CDN}s, and the possibility of automatic authentication even in those websites that do not use the classic forms;
+    \item defines a hybrid architecture that uses \acrshort{AWS} as main and, in case of saturated concurrent functions, routes subsequent messages to a Knative cluster;
+    \item deploy a \gls{pod} that is always up and allows to service a \acrshort{TOR} proxy so that serverless implementations can also use this functionality.
+\end{itemize}
+
+\end{document}

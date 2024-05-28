@@ -1,0 +1,37 @@
+apiVersion: eventing.knative.dev/v1alpha1
+kind: RabbitmqBrokerConfig
+metadata:
+  name: kopjra-config
+  namespace: NAMESPACE
+spec:
+  rabbitmqClusterReference:
+    name: rabbitmq
+    namespace: NAMESPACE
+  queueType: quorum
+---
+apiVersion: eventing.knative.dev/v1
+kind: Broker
+metadata:
+  name: kopjra
+  namespace: NAMESPACE
+  annotations:
+    eventing.knative.dev/broker.class: RabbitMQBroker
+    rabbitmq.eventing.knative.dev/cpu-request: 500m
+    rabbitmq.eventing.knative.dev/memory-request: 512Mi
+    rabbitmq.eventing.knative.dev/cpu-limit: 1000m
+    rabbitmq.eventing.knative.dev/memory-limit: 1024Mi
+spec:
+  config:
+    apiVersion: eventing.knative.dev/v1alpha1
+    kind: RabbitmqBrokerConfig
+    name: kopjra-config
+  delivery:
+    deadLetterSink:
+      ref:
+        apiVersion: serving.knative.dev/v1
+        kind: Service
+        name: event-display
+        namespace: NAMESPACE
+    backoffDelay: PT1S
+    backoffPolicy: exponential
+    retry: 3

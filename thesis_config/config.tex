@@ -1,0 +1,157 @@
+\newcommand{\myName}{Davide Pruscini}
+\newcommand{\myTitle}{Exploring the Effectiveness of AWS Lambda and Knative in a Serverless Web Crawler: A Comparative Study}
+\newcommand{\myDegree}{Master Thesis}
+\newcommand{\myUni}{Alma Mater Studiorum $\cdot$ Università di Bologna}
+\newcommand{\myFaculty}{Corso di Laurea Magistrale in Informatica}
+\newcommand{\myDepartment}{SCUOLA DI SCIENZE}
+\newcommand{\myCurriculum}{Curriculum A: Tecniche del Software}
+\newcommand{\myLocation}{Bologna}
+\newcommand{\mySession}{III - terzo appello}
+\newcommand{\myAY}{2022-2023}
+\newcommand{\myTime}{Marzo 2024}
+
+%\setlength{\parskip}{0pt}
+\setacronymstyle{long-short-desc}
+
+% avoid warnings
+\setlength{\headheight}{15pt}
+\BiblatexSplitbibDefernumbersWarningOff
+
+% show subsubsections in the toc
+%\setcounter{tocdepth}{3}
+%\setcounter{secnumdepth}{3}
+
+\captionsetup{
+    tableposition=top,
+    figureposition=bottom,
+    font=small,
+    format=plain,
+    labelfont=bf
+}
+
+\graphicspath{{images/}}
+
+\addbibresource{bibliography.bib}
+\addbibresource{sitography.bib}
+
+\addto\extrasenglish{
+    \def\chapterautorefname{Chapter}
+    \def\sectionautorefname{Section}
+    \def\subsectionautorefname{Subsection}
+}
+
+\hypersetup{
+    %hyperfootnotes=false,
+    %pdfpagelabels,
+    %draft,	% = elimina tutti i link (utile per stampe in bianco e nero)
+    colorlinks=true,
+    linktocpage=true,
+    pdfstartpage=1,
+    pdfstartview=FitV,
+    % Uncomment the follo   wing line to print the document in black and white
+    colorlinks=false, linktocpage=false, pdfborder={0 0 0}, pdfstartpage=1, pdfstartview=FitV,
+    breaklinks=true,
+    pdfpagemode=UseNone,
+    pageanchor=true,
+    pdfpagemode=UseOutlines,
+    plainpages=false,
+    bookmarksnumbered,
+    bookmarksopen=true,
+    bookmarksopenlevel=1,
+    hypertexnames=true,
+    pdfhighlight=/O,
+    %nesting=true,
+    %frenchlinks,
+    urlcolor=webbrown,
+    linkcolor=RoyalBlue,
+    citecolor=webgreen,
+    %pagecolor=RoyalBlue,
+    %urlcolor=Black, linkcolor=Black, citecolor=Black, %pagecolor=Black,
+    pdftitle={\myTitle},
+    pdfauthor={\textcopyright\ \myName, \myUni, \myFaculty},
+    %pdfsubject={},
+    % pdfkeywords={Cloud Computing, FaaS, Serverless, Kubernetes, AWS Lambda, AWS SQS, AWS SNS, Knative, RabbitMQ, CloudEvents, Web Crawler, Browser Automation, Puppeteer, Elasticsearch, Amazon CloudWatch, Prometheus, Grafana, InfluxDB, Telegraf},
+    pdfcreator={pdfLaTeX},
+    pdfproducer={LaTeX}
+}
+
+\definecolor{webgreen}{rgb}{0,.5,0}
+\definecolor{webbrown}{rgb}{.6,0,0}
+
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}
+
+% \nouppercase to fix bibliography
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\textbf{\thepage}}
+\fancyhead[RE]{\textbf{\nouppercase{\leftmark}}}
+\fancyhead[LO]{\textbf{\nouppercase{\rightmark}}}
+
+% Other languages configuration
+\lstset{
+    keywordstyle=\color{RoyalBlue},
+    basicstyle=\small\ttfamily,
+    %identifierstyle=\color{NavyBlue},
+    commentstyle=\color{purple}\ttfamily,
+    stringstyle=\rmfamily,
+    numbers=none, %left,%
+    numberstyle=\scriptsize, %\tiny
+    stepnumber=5,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frameround=ftff,
+    frame=single,
+    rulecolor=\color{black}
+}
+
+% Add JSON language to listings (https://tex.stackexchange.com/q/560830/)
+\lstdefinelanguage{json}{
+    basicstyle=\small\ttfamily,
+    numbers=none,
+    numberstyle=\scriptsize,
+    stepnumber=5,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=single
+}
+
+% Add YAML language to listings (https://tex.stackexchange.com/q/152829/)
+\newcommand\YAMLcolonstyle{\color{Black}\mdseries}
+\newcommand\YAMLkeystyle{\color{Green}\small}
+\newcommand\YAMLvaluestyle{\color{Black}\mdseries}
+
+\makeatletter
+
+\newcommand\language@yaml{yaml}
+
+\expandafter\expandafter\expandafter\lstdefinelanguage
+\expandafter{\language@yaml}
+{
+  keywords={},
+  keywordstyle=\color{darkgray}\bfseries,
+  basicstyle=\YAMLkeystyle\ttfamily,
+  sensitive=false,
+  comment=[l]{\#},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\YAMLvaluestyle\ttfamily,
+  moredelim=[l][\color{orange}]{\&},
+  %moredelim=[l][\color{magenta}]{*},
+  moredelim=**[il][\YAMLcolonstyle{:}\YAMLvaluestyle]{:},
+  moredelim=**[il][\YAMLcolonstyle{=}\YAMLvaluestyle]{=},
+  morestring=[b]',
+  morestring=[b]",
+  literate =    {---}{{\ProcessThreeDashes}}3
+                {>}{{\textcolor{red}\textgreater}}1     
+                {|}{{\textcolor{red}\textbar}}1 
+                {\ -\ }{{\mdseries\ -\ }}3,
+}
+
+% switch to key style at EOL
+\lst@AddToHook{EveryLine}{\ifx\lst@language\language@yaml\YAMLkeystyle\fi}
+\makeatother
+
+\newcommand\ProcessThreeDashes{\llap{\color{black}\mdseries-{-}-}}

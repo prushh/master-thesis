@@ -1,0 +1,72 @@
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: crawls-trigger
+  namespace: NAMESPACE
+  annotations:
+    rabbitmq.eventing.knative.dev/cpu-request: 100m
+    rabbitmq.eventing.knative.dev/memory-request: 100Mi
+    rabbitmq.eventing.knative.dev/cpu-limit: 300m
+    rabbitmq.eventing.knative.dev/memory-limit: 300Mi
+    rabbitmq.eventing.knative.dev/parallelism: "100"
+spec:
+  broker: kopjra
+  filter:
+    attributes:
+      type: dev.kapturer.crawls
+      source: kn-kapturer-be
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: kn-krawler
+      namespace: NAMESPACE
+---
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: results-trigger
+  namespace: NAMESPACE
+  annotations:
+    rabbitmq.eventing.knative.dev/cpu-request: 100m
+    rabbitmq.eventing.knative.dev/memory-request: 100Mi
+    rabbitmq.eventing.knative.dev/cpu-limit: 300m
+    rabbitmq.eventing.knative.dev/memory-limit: 300Mi
+    rabbitmq.eventing.knative.dev/parallelism: "100"
+spec:
+  broker: kopjra
+  filter:
+    attributes:
+      type: dev.krawler.results
+      source: kn-krawler
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: kn-kapturer-be
+      namespace: NAMESPACE
+    uri: /v1/internal/results
+---
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: response-trigger
+  namespace: NAMESPACE
+  annotations:
+    rabbitmq.eventing.knative.dev/cpu-request: 100m
+    rabbitmq.eventing.knative.dev/memory-request: 100Mi
+    rabbitmq.eventing.knative.dev/cpu-limit: 300m
+    rabbitmq.eventing.knative.dev/memory-limit: 300Mi
+    rabbitmq.eventing.knative.dev/parallelism: "100"
+spec:
+  broker: kopjra
+  filter:
+    attributes:
+      type: dev.krawler.response
+      source: kn-krawler
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: event-display
+      namespace: NAMESPACE

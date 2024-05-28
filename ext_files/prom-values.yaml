@@ -1,0 +1,16 @@
+kube-state-metrics:
+  metricLabelsAllowlist:
+   - jobs=[*]
+   - pods=[*]
+   - deployments=[app.kubernetes.io/name,app.kubernetes.io/component,app.kubernetes.io/instance]
+prometheus:
+  prometheusSpec:
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    remoteWrite:
+      - url: "http://telegraf.metrics.svc:8080/telegraf"
+grafana:
+  sidecar:
+    dashboards:
+      enabled: true
+      searchNamespace: ALL

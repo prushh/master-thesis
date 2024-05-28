@@ -1,0 +1,44 @@
+resources:
+  requests:
+    memory: 500Mi
+    cpu: 500m
+  limits:
+    memory: 1Gi
+    cpu: 1000m
+config:
+  agent:
+    interval: "10s"
+    round_interval: true
+    metric_batch_size: 50000
+    metric_buffer_limit: 100000
+    collection_jitter: "0s"
+    flush_interval: "10s"
+    flush_jitter: "0s"
+    precision: ""
+    debug: false
+    quiet: false
+    logfile: ""
+    hostname: "$HOSTNAME"
+    omit_hostname: false
+  inputs:
+    - http_listener_v2:
+        service_address: ":8080"
+        paths: ["/telegraf"]
+        data_format: "prometheusremotewrite"
+  outputs:
+    - influxdb_v2:
+        urls:
+          - "http://influxdb-influxdb2.metrics.svc:80/"
+        token: "$API_TOKEN"
+        bucket: "$BUCKET_NAME"
+        organization: "influxdata"
+        timeout: "5s"
+        insecure_skip_verify: false
+metrics:
+  health:
+    enabled: true
+    service_address: "http://:8888"
+    threshold: 5000
+  internal:
+    enabled: false
+    collect_memstats: false
