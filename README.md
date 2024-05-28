@@ -21,3 +21,7 @@ You can *download or view* the .pdf file of the thesis [here](https://github.com
 ### License
 
 This project is licensed under the **CC BY-NC-ND 4.0 License** - see the [AMSLaurea page](https://amslaurea.unibo.it/id/eprint/30888) for details.
+
+### Acknowledgement
+
+The template's skeleton was taken from [jjocram/master-thesis](https://github.com/jjocram/master-thesis).
